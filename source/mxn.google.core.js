@@ -467,6 +467,11 @@ Marker: {
 			});
 		}
 
+		GEvent.addListener(gmarker, 'dragend', function(mouseEvent) {
+			var latLon = new mxn.LatLonPoint(mouseEvent.lat(), mouseEvent.lng());
+			this.mapstraction_marker.dragend.fire(latLon);
+		})
+
 		return gmarker;
 	},
 

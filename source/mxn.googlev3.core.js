@@ -434,6 +434,10 @@ Marker: {
 			);
 		}
 
+		google.maps.event.addListener(marker, 'dragend', function(mouseEvent) {
+			var latLon = new mxn.LatLonPoint(mouseEvent.latLng.lat(), mouseEvent.latLng.lng());
+			marker.mapstraction_marker.dragend.fire(latLon);
+		});
 		google.maps.event.addListener(marker, 'click', function() {
 			marker.mapstraction_marker.click.fire();
 		});
