@@ -1435,10 +1435,12 @@ var Marker = mxn.Marker = function(point) {
 	this.attributes = [];
 	this.invoker = new mxn.Invoker(this, 'Marker', function(){return this.api;});
 	mxn.addEvents(this, [ 
-		'openInfoBubble',	// Info bubble opened
-		'closeInfoBubble', 	// Info bubble closed
-		'click',			// Marker clicked
-		'dragend'		// Marker drag ended
+		'openInfoBubble',       // Info bubble opened
+		'closeInfoBubble',      // Info bubble closed
+		'click',                // Marker clicked
+		'drag',                 // Marker dragging
+		'dragStart',            // Marker drag started
+		'dragEnd'               // Marker drag ended
 	]);
 };
 

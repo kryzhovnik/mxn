@@ -437,11 +437,22 @@ Marker: {
 			ymarker.setBalloonContent(this.infoBubble);
 		}
 		
-		YMaps.Events.observe(ymarker, ymarker.Events.DragEnd, function(ymarker) {
-			var latLon = new mxn.LatLonPoint().fromProprietary('yandex', ymarker.getGeoPoint());
-			this.mapstraction_marker.location = latLon;
-			this.mapstraction_marker.dragend.fire(latLon);
-		});
+		var setEvent = function(yName, mName) {
+			YMaps.Events.observe(ymarker, ymarker.Events[yName], function(ymarker) {
+				var latLonPoint = new mxn.LatLonPoint(
+					ymarker.getGeoPoint().getY(),
+					ymarker.getGeoPoint().getX()
+				);
+				this.mapstraction_marker[mName].fire(latLonPoint);
+			});
+		}
+		var eventsMap = {
+			Drag: 'drag',
+			DragEnd: 'dragEnd',
+			DragStart: 'dragStart',
+			Click: 'click'
+		}
+		for (var yName in eventsMap) setEvent(yName, eventsMap[yName]);
 		
 		return ymarker;
 	},

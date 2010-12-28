@@ -467,10 +467,22 @@ Marker: {
 			});
 		}
 
-		GEvent.addListener(gmarker, 'dragend', function(mouseEvent) {
-			var latLon = new mxn.LatLonPoint(mouseEvent.lat(), mouseEvent.lng());
-			this.mapstraction_marker.dragend.fire(latLon);
-		})
+		var setEvent = function(gName, mName) {
+			GEvent.addListener(gmarker, gName, function(mouseEvent) {
+				var latLonPoint = new mxn.LatLonPoint(
+					mouseEvent.lat(),
+					mouseEvent.lng()
+				);
+				this.mapstraction_marker[mName].fire(latLonPoint);
+			});
+		}
+		var eventsMap = {
+			drag: 'drag',
+			dragend: 'dragEnd',
+			dragstart: 'dragStart',
+			click: 'click'
+		}
+		for (var gName in eventsMap) setEvent(gName, eventsMap[gName]);
 
 		return gmarker;
 	},
